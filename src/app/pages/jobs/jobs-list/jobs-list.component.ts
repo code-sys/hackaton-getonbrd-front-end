@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { IJob, IMeta, INgxPaginationPage } from '../../../common/interfaces/jobs-interfaces';
-import { PaginationParams } from '../../../common/interfaces/pagination-params';
+import { Subject } from 'rxjs';
+import { IJob, IMeta, PaginationParams, INgxPaginationPage } from '@core/interfaces';
 import { JobsService } from '../../../services/jobs/jobs.service';
 
 @Component({
@@ -28,13 +27,10 @@ export class JobsListComponent implements OnInit, OnDestroy {
             page: this.page,
             per_page: this.itemsPerPage,
         };
-        this.jobsService
-            .getAllCategories(paginationParams)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((resp) => {
-                this.jobs = resp.data;
-                this.meta = resp.meta;
-            });
+        this.jobsService.getAllJobs(paginationParams).subscribe((resp) => {
+            this.jobs = resp.data;
+            this.meta = resp.meta;
+        });
     }
 
     onPageChanged(page: INgxPaginationPage) {

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IJobs } from '../../common/interfaces/jobs-interfaces';
+import { IJobs } from '../../common/interfaces/job';
 import { PaginationParams } from '../../common/interfaces/pagination-params';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class JobsService {
     private readonly baseUrl = environment.GET_ON_BOARD_API + '/categories/programming/jobs';
     constructor(private httpClient: HttpClient) {}
 
-    getAllCategories(queryParameters: PaginationParams): Observable<IJobs> {
+    getAllJobs(queryParameters: PaginationParams): Observable<IJobs> {
         let params: HttpParams = new HttpParams();
         params = params.set('per_page', queryParameters.per_page);
         params = params.set('page', queryParameters.page);

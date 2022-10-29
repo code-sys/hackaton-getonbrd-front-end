@@ -2,7 +2,7 @@
     <h1>Jobs List</h1>
     <div>
         <div class="" style="padding:5px">
-            <table class="table table-responsive" style="overflow: auto; display: table;">
+            <table class="table table-responsive">
                 <thead class=" text-primary">
                     <tr>
                         <th scope="col">Título</th>
@@ -29,10 +29,12 @@
                             <ng-container
                                 *ngIf="job.attributes.company.data.attributes.response_time_in_days.min || job.attributes.company.data.attributes.response_time_in_days.max">
                                 <div>
-                                    Mínimo: {{job.attributes.company.data.attributes.response_time_in_days.min ? (job.attributes.company.data.attributes.response_time_in_days.min + "día(s)") : 'No se sabe'}}
+                                    Mínimo: {{job.attributes.company.data.attributes.response_time_in_days.min ?
+                                    (job.attributes.company.data.attributes.response_time_in_days.min + "día(s)") : 'No se sabe'}}
                                 </div>
                                 <div>
-                                    Máximo: {{job.attributes.company.data.attributes.response_time_in_days.max ? (job.attributes.company.data.attributes.response_time_in_days.max + "día(s)") : 'No se sabe'}}
+                                    Máximo: {{job.attributes.company.data.attributes.response_time_in_days.max ?
+                                    (job.attributes.company.data.attributes.response_time_in_days.max + "día(s)") : 'No se sabe'}}
                                 </div>
                             </ng-container>
                             <ng-container
@@ -63,7 +65,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
