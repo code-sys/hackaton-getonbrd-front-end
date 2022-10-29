@@ -9,6 +9,7 @@ export const environment = {
   API_URL: 'https://api-sky-krono.skyzerozx.com',
   // API_URL: 'http://localhost:3000',
   TIME_ZONE: 'America/Bogota',
+  GET_ON_BOARD_API: 'https://www.getonbrd.com/api/v0',
 };
 
 /*
