@@ -26,14 +26,14 @@ const routes: Routes = [
         ],
     },
     {
-        path: 'jobs',
-        loadChildren: () => import('./pages/jobs/jobs.module').then((m) => m.JobsModule),
-    },
-    {
         path: '',
         component: AdminLayoutComponent,
-        // canActivate: [FirstLogin, CheckRole, IsLogged],
+        canActivate: [FirstLogin, CheckRole, IsLogged],
         children: [
+            {
+                path: 'jobs',
+                loadChildren: () => import('./pages/jobs/jobs.module').then((m) => m.JobsModule),
+            },
             {
                 path: 'calendar-admin',
                 canActivate: [RoleAdmin],
