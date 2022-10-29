@@ -7,3 +7,6 @@ export * from './schedule';
 export * from './task';
 export * from './type';
 export * from './user';
+export * from './job';
+export * from './authentication';
+export * from './pagination-params';

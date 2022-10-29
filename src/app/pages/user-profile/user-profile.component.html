@@ -27,22 +27,16 @@
         <div class=" card-body">
           <form [formGroup]="userProfileForm">
             <div class=" row">
-              <div class=" col-md-5 pr-md-1">
+              <div class=" col-md-7 pr-md-1">
                 <div class=" form-group">
-                  <label>UserName</label>
+                  <label>Username</label>
                   <input class=" form-control" readonly placeholder="User" type="text" formControlName="username" />
                 </div>
               </div>
-              <div class=" col-md-4 pl-md-1">
+              <div class=" col-md-5 pl-md-1">
                 <div class=" form-group">
-                  <label> Actualizado </label>
+                  <label> &nbsp;&nbsp; &nbsp; Actualizado </label>
                   <input class=" form-control" type="text" readonly formControlName="updateAt" />
-                </div>
-              </div>
-              <div class=" col-md-3 pl-md-1">
-                <div class=" form-group">
-                  <label> Rol </label>
-                  <input class=" form-control" type="text" readonly formControlName="role" />
                 </div>
               </div>
             </div>
@@ -97,6 +91,35 @@
                       *ngIf="userProfileForm.controls.motherLastName.errors?.minlength">
                       La longitud minima del apellido paterno es de 2 caracteres</small>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 pl-md-1">
+                <div class=" form-group">
+                  <label> Habilidades Tecnicas </label>
+                  <textarea class="form-control" placeholder="Habilidades Tecnicas" rows="10"
+                    formControlName="techSkills"> </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 pl-md-1">
+                <div class=" form-group">
+                  <label> Habilidades Blandas </label>
+                  <textarea class="form-control" placeholder="Habilidades Blandas" rows="10"
+                    formControlName="softSkills"> </textarea>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12 pl-md-1">
+                <div class=" form-group">
+                  <label> Experiencia Laboral</label>
+                  <textarea class="form-control" placeholder="Habilidades Blandas" rows="10"
+                    formControlName="softSkills"> </textarea>
                 </div>
               </div>
             </div>

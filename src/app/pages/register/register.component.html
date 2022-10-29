@@ -1,0 +1,136 @@
+<br>
+<div class=" col-lg-4 col-md-6 ml-auto mr-auto" style="text-align: center;" id="welcome">
+  <h1>Registro</h1>
+</div>
+
+
+<div class="container mt--8 pb-5  ">
+  <div class="row justify-content-center">
+    <div class="col-xl-7 col-md-12">
+      <div class="card  shadow border-0" [style]="darkTheme ? 'background: rgb(30 31 50)' : '' ">
+        <div class="card-header bg-transparent pb-8">
+          <div class="card-body px-xl-12 py-xl-12">
+            <div class="text-center text-muted mb-4">
+              <p>Ingrese sus datos</p>
+            </div>
+            <form [formGroup]="registerForm">
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group mb-3">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><em class="tim-icons icon-email-85" id="icon-email"></em></span>
+                      </div>
+                      <input class="form-control" formControlName='username' maxlength="50" placeholder="Email"
+                        autocomplete="off" type="email">
+                      <div *ngIf="registerForm.controls.username.invalid && registerForm.controls.username.touched">
+                        <small id="validEmail" class="text-left" *ngIf="registerForm.controls.username.errors?.email">
+                          Debe ingresar un Email valido</small>registerForm
+                        <small id="requiredEmail" class="text-left"
+                          *ngIf="registerForm.controls.username.errors?.required">
+                          Se requiere ingresar Email</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><em class="fa-solid fa-font"></em></span>
+                      </div>
+                      <input class="form-control" autocomplete="off" formControlName='name' placeholder="Nombre"
+                        type="text" />
+                      <div *ngIf="registerForm.controls.name.invalid && registerForm.controls.name.touched">
+                        <small id="required-name" class="text-left" *ngIf="registerForm.controls.name.errors?.required">
+                          Se requiere ingresar nombres</small>
+
+                        <small id="minlength-name" class="text-left"
+                          *ngIf="registerForm.controls.name.errors?.minlength">
+                          La longitud minima del nombre es de 2 caracteres</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><em class="fa-solid fa-font"></em></span>
+                      </div>
+                      <input class="form-control" autocomplete="off" formControlName='fatherLastName'
+                        placeholder="Apellido Paterno" type="text" />
+                      <div
+                        *ngIf="registerForm.controls.fatherLastName.invalid && registerForm.controls.fatherLastName.touched">
+                        <small id="required-father-lastname" class="text-left"
+                          *ngIf="registerForm.controls.fatherLastName.errors?.required">
+                          Se requiere ingresar apellido paterno</small>
+                        <small id="minlength-father-lastname" class="text-left"
+                          *ngIf="registerForm.controls.fatherLastName.errors?.minlength">
+                          La longitud minima del apellido paterno es de 2 caracteres</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+ 
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><em class="fa-solid fa-font"></em></span>
+                      </div>
+                      <input class="form-control" autocomplete="off" formControlName='motherLastName'
+                        placeholder="Apellido Materno" type="text" />
+                      <div
+                        *ngIf="registerForm.controls.motherLastName.invalid && registerForm.controls.motherLastName.touched">
+                        <small id="required-mother-lastname" class="text-left"
+                          *ngIf="registerForm.controls.motherLastName.errors?.required">
+                          Se requiere ingresar apellido materno</small>
+                        <small id="minlengt-mother-lastname" class="text-left"
+                          *ngIf="registerForm.controls.motherLastName.errors?.minlength">
+                          La longitud minima del apellido materno es de 2 caracteres</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><em class="fa-solid fa-phone"></em></span>
+                      </div>
+                      <input class="form-control" autocomplete="off" formControlName='phone' maxlength="9"
+                        oninput="process(this)" placeholder="Celular" type="text" />
+                      <div *ngIf="registerForm.controls.phone.invalid && registerForm.controls.phone.touched">
+                        <small id="required-phone" class="text-left"
+                          *ngIf="registerForm.controls.phone.errors?.required">
+                          Se requiere ingresar celular <br /></small>
+                        <small id="minlengt-phone" class="text-left"
+                          *ngIf="registerForm.controls.phone.errors?.minlength">
+                          La longitud minima del celular es de 9 caracteres</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary mr-4" [routerLink]="['/login']">Atras</button>
+                <button type="submit" (click)="registerUser()" class="btn btn-primary my-2"
+                  [disabled]="registerForm.invalid">Registrarse</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
