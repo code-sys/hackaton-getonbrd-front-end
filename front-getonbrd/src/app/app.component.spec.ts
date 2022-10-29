@@ -1,35 +1,67 @@
-import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { ThemeService } from './services/theme/theme.service';
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+fdescribe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let swUpdate: SwUpdate;
+  let themeService: ThemeService;
+  let mockSwUpdate: any = {
+    versionUpdates: of(null),
+  };
+  let mockEvent: any = {
+    preventDefault() {
+      return;
+    },
+  };
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
       imports: [
-        RouterTestingModule
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        NgxSpinnerModule,
+        FormsModule,
+        RouterTestingModule,
+        ServiceWorkerModule,
       ],
-      declarations: [
-        AppComponent
+      providers: [
+        ToastrService,
+        ReactiveFormsModule,
+        ThemeService,
+        { provide: SwUpdate, useValue: mockSwUpdate },
+        { provide: ToastrService, useClass: ToastrService },
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    themeService = TestBed.inject(ThemeService);
+    swUpdate = TestBed.inject(SwUpdate);
+    component = fixture.debugElement.componentInstance;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('AppComponent create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'api-getonbrd'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('api-getonbrd');
+  it('Validate onBeforeInstallPrompt', () => {
+    component.onBeforeInstallPrompt(mockEvent);
+    expect(themeService.promptEvent).toEqual(mockEvent);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('api-getonbrd app is running!');
+  it('Validate existUpdate', () => {
+    expect(component.existUpdate()).toBeUndefined();
   });
 });
