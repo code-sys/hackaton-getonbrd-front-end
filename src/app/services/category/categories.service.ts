@@ -9,15 +9,15 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriesService {
 
-  baseUrl = environment.urlBase + '/categories';
+  baseUrl = environment.GET_ON_BOARD_API + '/categories';
   constructor(
-    private http: HttpClient,
+    private httpClient: HttpClient,
   ) { }
 
   getAllCategories(queryParameters: PaginationParams) : Observable<Category[]>{
     let params: HttpParams = new HttpParams();
     params = params.set('per_page', queryParameters.per_page);
     params = params.set('page', queryParameters.page);
-    return this.httpClient.get<CentersResponse>(this.baseUrl, {params});
+    return this.httpClient.get<Category[]>(this.baseUrl, {params});
   }  
 }
