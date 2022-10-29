@@ -21,36 +21,36 @@ import { MyHammerConfig } from './common/config/HammerJsConfig';
 
 registerLocaleData(localeEs, 'es');
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    HammerModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    RouterModule,
-    AppRoutingModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      toastClass: 'alert',
-      positionClass: 'toast-top-right',
-    }),
-    NgxSpinnerModule,
-    ServiceWorkerModule.register('custom-service-worker.js', {
-      enabled: environment.production,
-      registrationStrategy: 'registerWhenStable:5000',
-    }),
-  ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'es' },
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig,
-    },
-    { provide: ToastrService, useClass: ToastrService },
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
-  ],
-  bootstrap: [AppComponent],
+    imports: [
+        BrowserAnimationsModule,
+        HammerModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        RouterModule,
+        AppRoutingModule,
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            toastClass: 'alert',
+            positionClass: 'toast-top-right',
+        }),
+        NgxSpinnerModule,
+        ServiceWorkerModule.register('custom-service-worker.js', {
+            enabled: environment.production,
+            registrationStrategy: 'registerWhenStable:5000',
+        }),
+    ],
+    declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
+    providers: [
+        { provide: LOCALE_ID, useValue: 'es' },
+        {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: MyHammerConfig,
+        },
+        { provide: ToastrService, useClass: ToastrService },
+        { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}
