@@ -9,6 +9,7 @@ import { LoginComponent } from 'src/app/pages/login/login.component';
 import { ChangePasswordComponent } from 'src/app/pages/change-password/change-password.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RegisterComponent } from '../../pages/register/register.component';
+import { ForgotPasswordComponent } from '../../pages/forgot-password/forgot-password.component';
 
 @NgModule({
     imports: [
@@ -20,6 +21,6 @@ import { RegisterComponent } from '../../pages/register/register.component';
         NgbModule,
         ReactiveFormsModule,
     ],
-    declarations: [ChangePasswordComponent, LoginComponent, RegisterComponent],
+    declarations: [ChangePasswordComponent, LoginComponent, RegisterComponent, ForgotPasswordComponent],
 })
 export class AuthLayoutModule {}

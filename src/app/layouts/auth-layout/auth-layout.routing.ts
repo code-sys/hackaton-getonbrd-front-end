@@ -3,6 +3,7 @@ import { CheckLogin } from 'src/app/common/guards/check-login.guard';
 import { IsLogged } from 'src/app/common/guards/is-logged.guard';
 import { ChangePasswordComponent } from 'src/app/pages/change-password/change-password.component';
 import { LoginComponent } from 'src/app/pages/login/login.component';
+import { ForgotPasswordComponent } from '../../pages/forgot-password/forgot-password.component';
 import { RegisterComponent } from '../../pages/register/register.component';
 
 export const AuthLayoutRoutes: Routes = [
@@ -22,5 +23,10 @@ export const AuthLayoutRoutes: Routes = [
         path: 'register',
         component: RegisterComponent,
         data: { animation: 'register' },
+    },
+    {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent,
+        data: { animation: 'forgot-password' },
     },
 ];

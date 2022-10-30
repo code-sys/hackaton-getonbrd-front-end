@@ -40,10 +40,24 @@
                   <input class=" form-control" readonly placeholder="User" type="text" formControlName="username" />
                 </div>
               </div>
-              <div class=" col-md-5 pl-md-1">
+              <div class=" col-md-2 pl-md-1">
                 <div class=" form-group">
-                  <label> &nbsp;&nbsp; &nbsp; Actualizado </label>
-                  <input class=" form-control" type="text" readonly formControlName="updateAt" />
+                  <label> Actualizado </label>
+                  <input class=" form-control" type="text" readonly
+                    [value]="userProfileForm.get('updateAt').value |  date: 'yyyy-MM-dd'" formControlName="updateAt" />
+                </div>
+              </div>
+              <div class=" col-md-3 pl-md-1">
+                <div class=" form-group">
+                  <label> Celular </label>
+                  <input class=" form-control" type="text" formControlName="phone" oninput="process(this)"
+                    maxlength="9" />
+                </div>
+                <div *ngIf="userProfileForm.controls.phone.invalid && userProfileForm.controls.phone.touched">
+                  <small id="required-phone" class="text-left" *ngIf="userProfileForm.controls.phone.errors?.required">
+                    Se requiere ingresar celular <br /></small>
+                  <small id="minlengt-phone" class="text-left" *ngIf="userProfileForm.controls.phone.errors?.minlength">
+                    La longitud minima del celular es de 9 caracteres</small>
                 </div>
               </div>
             </div>
@@ -119,8 +133,6 @@
                 </div>
               </div>
             </div>
-
-
             <div class="row">
               <div class="col-md-12 pl-md-1">
                 <div class=" form-group">
@@ -132,9 +144,18 @@
             </div>
           </form>
         </div>
-        <div class="card-footer ml-4">
-          <button class="btn info" [disabled]="userProfileForm.invalid" id="btn-update-profile"
-            (click)="updateProfile()">Actualizar</button>
+
+        <div class="card-footer">
+          <div class="d-flex">
+            <div class="p-2"> <button type="button" (click)="showCVPdf()" class="btn outline danger">
+                <i class="fa fa-file-pdf"></i> &nbsp;&nbsp;
+                Descargar Curriculum Vitae
+              </button></div>
+            <div class="ml-auto p-2">
+              <button class="btn info  ml-5" [disabled]="userProfileForm.invalid" id="btn-update-profile"
+                (click)="updateProfile()">Actualizar</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -146,13 +167,13 @@
           <div class=" row">
             <div class=" col-md-5 pr-md-1">
               <div class=" form-group">
-                <button type="button" [swal]="swalLogout" class="btn outline danger" id="btn-logout"> <i
+                <button type="button" [swal]="swalLogout" class="btn outline danger"> <i
                     class="tim-icons  icon-button-power"></i> &nbsp;&nbsp;
                   Logout</button>
               </div>
               <div class=" form-group">
-                <button type="button" [routerLink]="['/change-password']" class="btn outline danger"
-                  id="btn-change-password"> <i class="tim-icons  icon-key-25"></i> &nbsp;&nbsp; Cambiar
+                <button type="button" [routerLink]="['/change-password']" class="btn outline danger"> <i
+                    class="tim-icons  icon-key-25"></i> &nbsp;&nbsp; Cambiar
                   Contraseña</button>
               </div>
             </div>

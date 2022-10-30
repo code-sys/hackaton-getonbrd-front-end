@@ -6,6 +6,9 @@ export interface ResponseTimeInDays {
 export interface DataModality {
     id: number;
     type: string;
+    attributes: {
+        name: string;
+    };
 }
 
 export interface Modality {
@@ -15,6 +18,9 @@ export interface Modality {
 export interface DataSeniority {
     id: number;
     type: string;
+    attributes: {
+        name: string;
+    };
 }
 
 export interface Seniority {
@@ -85,8 +91,8 @@ export interface Attributes {
     response_time_in_days: ResponseTimeInDays;
     applications_count: number;
     tenant_city?: any;
-    modality: Modality;
-    seniority: Seniority;
+    modality?: Modality;
+    seniority?: Seniority;
     tags: Tags;
     company: Company;
 }
