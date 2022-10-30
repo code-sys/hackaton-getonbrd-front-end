@@ -37,6 +37,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
     setJobs() {
         this.jobsService.getAllJobs(this.paginationParams).subscribe({
             next: (resp) => {
+                console.log('resp' , resp)
                 this.jobs = resp.data;
                 this.meta = resp.meta;
             },
@@ -54,6 +55,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
     searchJobsWihAWord(word: string) {
         this.searchJobs.searchJobs(this.paginationParams, word).subscribe({
             next: (resp) => {
+                console.log('resp' , resp)
                 this.jobs = resp.data;
                 this.meta = resp.meta;
             },

@@ -17,7 +17,7 @@ export class UserPhotoComponent {
     @ViewChild('swalUploadPhoto')
     readonly swalUploadPhoto: SwalComponent;
     swalPhotoUser: string;
-    fileUserAvatar: any;
+    fileUserAvatar: File;
 
     constructor(
         public readonly swalPortalTargets: SwalPortalTargets,

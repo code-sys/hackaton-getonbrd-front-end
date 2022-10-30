@@ -37,15 +37,15 @@
                                 <h5 class="mt-3">Idioma </h5>
                                 <p>{{inputJob.attributes.lang == 'lang_not_specified' ?
                                     'No Especificado' : inputJob.attributes.lang}}</p>
-                                <h5 class="mt-3">Salario Minimo</h5>
+
+                                <h5 class="mt-3">Salario Mínimo</h5>
                                 <p>
-                                    {{inputJob.attributes.min_salary ? inputJob.attributes.min_salary : 'No
-                                    Especificado'}}
+                                    {{inputJob.attributes.min_salary ? inputJob.attributes.min_salary : 'No Especificado'}}
                                 </p>
-                                <h5 class="mt-3">Salario Maximo</h5>
+
+                                <h5 class="mt-3">Salario Máximo</h5>
                                 <p>
-                                    {{inputJob.attributes.max_salary ? inputJob.attributes.max_salary : 'No
-                                    Especificado'}}
+                                    {{inputJob.attributes.max_salary ? inputJob.attributes.max_salary : 'No Especificado'}}
                                 </p>
 
                                 <div *ngIf="inputJob.attributes.modality?.data?.attributes?.name">
@@ -117,16 +117,12 @@
                                             <i class="fa-solid fa-building  fa-xl"></i>
                                         </a>
                                     </div>
-
                                 </div>
                             </div>
                         </tab>
                     </tabset>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </div>

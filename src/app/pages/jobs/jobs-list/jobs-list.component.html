@@ -1,23 +1,28 @@
 <div class="content">
-    <div class="d-flex align-items-center">
-        <h1 class="pe-2 mb-0">Lista de trabajos</h1>
-        <button type="button" class="btn info" (click)="listShow = !listShow">
-            Listar como {{listShow ? 'cards' : 'tabla'}}
-        </button>
+    <div class="d-flex">
+        <div class="p-2">
+            <h1 class="pe-2 ">Lista de trabajos</h1>
+        </div>
+        <div class="ml-auto p-2">
+            <button type="button" class="btn info pe-2" (click)="listShow = !listShow">
+                Listar como {{listShow ? 'cards' : 'tabla'}}
+            </button>
+        </div>
     </div>
-    <div class="row">
+
+    <div class="row justify-content-center">
         <app-filter-jobs (filterSelected)="filterJobList($event)" (searchJobEmitter)="onSearchJob($event)">
         </app-filter-jobs>
         <ng-container *ngIf="listShow; else tableListF">
             <app-jobs-list-cards [jobs]="jobs" (goJobDetailsEmitter)="showDetail($event)"></app-jobs-list-cards>
         </ng-container>
         <ng-template #tableListF>
-            <div class="table-responsive">
+            <div class="table-responsive mt-4">
                 <table class="table" style="max-height: 700px  ">
                     <thead class=" text-primary">
                         <tr>
                             <th scope="col">Título</th>
-                            <th scope="col">Compania</th>
+                            <th scope="col">Compañia</th>
                             <th scope="col">Tiempo respuesta</th>
                             <th scope="col" style="width: 200px;">Link trabajo</th>
                             <th scope="col" style="width: 200px;">Detalles del trabajo</th>
@@ -71,21 +76,23 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <div class="d-flex flex-column " *ngIf="jobs">
-                    <div class="flex-wrap d-flex justify-content-center">
-                        <pagination [boundaryLinks]="showBoundaryLinks" [maxSize]="maxSize" [rotate]="false"
-                            [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
-                            [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate"
-                            [totalItems]="meta.total_pages * meta.per_page" (pageChanged)="onPageChanged($event)">
-                        </pagination>
-                    </div>
-                    <div class="flex-wrap d-flex justify-content-center">
-                        Páginas: {{meta.total_pages}}
-                    </div>
-                </div>
             </div>
         </ng-template>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div *ngIf="jobs">
+            <div class="flex-wrap d-flex justify-content-center">
+                <pagination [boundaryLinks]="showBoundaryLinks" [maxSize]="maxSize" [rotate]="false"
+                    [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+                    [itemsPerPage]="meta.per_page" [customPreviousTemplate]="prevTemplate"
+                    [customNextTemplate]="nextTemplate" [totalItems]="meta.total_pages * meta.per_page"
+                    (pageChanged)="onPageChanged($event)">
+                </pagination>
+            </div>
+            <div class="flex-wrap d-flex justify-content-center">
+                Páginas: {{meta.total_pages}}
+            </div>
+        </div>
     </div>
 </div>
 
