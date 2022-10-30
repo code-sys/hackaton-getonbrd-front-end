@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IJob, IMeta, PaginationParams, INgxPaginationPage } from '@core/interfaces';
 import { JobsService } from '../../../services/jobs/jobs.service';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FilterJobType } from '@core/interfaces/filter-job-type';
 import { SearchJobsService } from '../../../services/search-jobs/search-jobs.service';
 
@@ -13,20 +12,18 @@ import { SearchJobsService } from '../../../services/search-jobs/search-jobs.ser
 })
 export class JobsListComponent implements OnInit, OnDestroy {
     jobs: IJob[];
-    meta: IMeta;    
+    meta: IMeta;
     showModalDetail: boolean = false;
     showBoundaryLinks: boolean = true;
     maxSize: number = 5;
     jobSelected: IJob;
     private unsubscribe$ = new Subject();
-    @ViewChild('modalJobDetail', { static: false })
-    readonly modalJobDetail: ModalDirective;
     paginationParams: PaginationParams = {
         per_page: 10,
         page: 1,
         filterJobType: {
             url: 'categories',
-            code: 'programming',            
+            code: 'programming',
         },
     };
 
@@ -85,11 +82,10 @@ export class JobsListComponent implements OnInit, OnDestroy {
         this.paginationParams.filterJobType = filterJobType; //envio una categoria
         this.setJobs();
     }
-    
+
     showDetail(job: IJob) {
         this.jobSelected = job;
         this.showModalDetail = true;
-        this.modalJobDetail.show();
     }
 
     onSearchJob(word: string) {

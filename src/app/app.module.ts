@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ComponentsModule } from './components/components.module';
+import { SharedModule } from './shared/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { InterceptorService } from './services/interceptor/interceptor.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -26,7 +26,7 @@ registerLocaleData(localeEs, 'es');
         HammerModule,
         FormsModule,
         HttpClientModule,
-        ComponentsModule,
+        SharedModule,
         RouterModule,
         AppRoutingModule,
         ToastrModule.forRoot({
