@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { IJob, IMeta, PaginationParams, INgxPaginationPage } from '@core/interfaces';
 import { JobsService } from '../../../services/jobs/jobs.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { FilterJobType } from '@core/interfaces/filter-job-type';
 
 @Component({
     selector: 'app-jobs-list',
@@ -22,7 +23,10 @@ export class JobsListComponent implements OnInit, OnDestroy {
     paginationParams: PaginationParams = {
         per_page: 10,
         page: 1,
-        category: '',
+        filterJobType: {
+            url: 'categories',
+            code: 'programming',            
+        },
     };
 
     constructor(private jobsService: JobsService) {}
@@ -58,12 +62,11 @@ export class JobsListComponent implements OnInit, OnDestroy {
         this.unsubscribe$.complete();
     }
 
-    filterCategoriesList(category: string) {
+    filterJobList(filterJobType: FilterJobType) {
         this.paginationParams.page = 1;
-        this.paginationParams.category = category; //envio una categoria
+        this.paginationParams.filterJobType = filterJobType; //envio una categoria
         this.setJobs();
     }
-
     
     showDetail(job: IJob) {
         this.jobSelected = job;
