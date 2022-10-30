@@ -11,36 +11,50 @@ import { JobsService } from '../../../services/jobs/jobs.service';
 export class JobsListComponent implements OnInit, OnDestroy {
     jobs: IJob[];
     meta: IMeta;
-    showBoundaryLinks = true;
-    itemsPerPage = 10;
-    page = 1;
+    showBoundaryLinks = true;    
     maxSize = 5;
     private unsubscribe$ = new Subject();
+    paginationParams: PaginationParams = {
+        per_page: 10,
+        page: 1,
+        category: '',
+    };
     constructor(private jobsService: JobsService) {}
 
     ngOnInit(): void {
         this.setJobs();
     }
 
-    setJobs() {
-        const paginationParams: PaginationParams = {
-            page: this.page,
-            per_page: this.itemsPerPage,
-        };
-        this.jobsService.getAllJobs(paginationParams).subscribe((resp) => {
-            this.jobs = resp.data;
-            this.meta = resp.meta;
+    setJobs() {        
+        this.jobsService.getAllJobs(this.paginationParams).subscribe({
+            next: (resp) => {
+                this.jobs = resp.data;
+                this.meta = resp.meta;
+            },
+            error: (error) => {
+                this.jobs = [];
+                this.meta = {
+                    page: 1,
+                    per_page: 10,
+                    total_pages: 0,
+                };
+            },
         });
     }
 
     onPageChanged(page: INgxPaginationPage) {
-        this.page = page.page;
+        this.paginationParams.page =  page.page;
         this.setJobs();
-        console.log(page);
     }
 
     ngOnDestroy(): void {
         this.unsubscribe$.next(true);
         this.unsubscribe$.complete();
+    }
+
+    filterCategoriesList(category: string){
+        this.paginationParams.page = 1;
+        this.paginationParams.category = category;//envio una categoria
+        this.setJobs();
     }
 }
