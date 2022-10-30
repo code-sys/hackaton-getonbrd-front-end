@@ -13,13 +13,14 @@ import { SearchJobsService } from '../../../services/search-jobs/search-jobs.ser
 export class JobsListComponent implements OnInit, OnDestroy {
     jobs: IJob[];
     meta: IMeta;
+    listShow: boolean = false;
     showModalDetail: boolean = false;
     showBoundaryLinks: boolean = true;
     maxSize: number = 5;
     jobSelected: IJob;
     private unsubscribe$ = new Subject();
     paginationParams: PaginationParams = {
-        per_page: 10,
+        per_page: 12,
         page: 1,
         filterJobType: {
             url: 'categories',

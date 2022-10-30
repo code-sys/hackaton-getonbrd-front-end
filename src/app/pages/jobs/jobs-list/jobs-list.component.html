@@ -1,81 +1,91 @@
 <div class="content">
-    <h1>Lista de trabajos</h1>
+    <div class="d-flex align-items-center">
+        <h1 class="pe-2 mb-0">Lista de trabajos</h1>
+        <button type="button" class="btn info" (click)="listShow = !listShow">
+            Listar como {{listShow ? 'cards' : 'tabla'}}
+        </button>
+    </div>
     <div class="row">
         <app-filter-jobs (filterSelected)="filterJobList($event)" (searchJobEmitter)="onSearchJob($event)">
         </app-filter-jobs>
-        <div class="table-responsive">
-            <table class="table" style="max-height: 700px  ">
-                <thead class=" text-primary">
-                    <tr>
-                        <th scope="col">Título</th>
-                        <th scope="col">Compania</th>
-                        <th scope="col">Tiempo respuesta</th>
-                        <th scope="col" style="width: 200px;">Link trabajo</th>
-                        <th scope="col" style="width: 200px;">Detalles del trabajo</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let job of jobs">
-                    <tr>
-                        <td>
-                            {{job.attributes.title}}
-                        </td>
-                        <td>
+        <ng-container *ngIf="listShow; else tableListF">
+            <app-jobs-list-cards [jobs]="jobs" (goJobDetailsEmitter)="showDetail($event)"></app-jobs-list-cards>
+        </ng-container>
+        <ng-template #tableListF>
+            <div class="table-responsive">
+                <table class="table" style="max-height: 700px  ">
+                    <thead class=" text-primary">
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Compania</th>
+                            <th scope="col">Tiempo respuesta</th>
+                            <th scope="col" style="width: 200px;">Link trabajo</th>
+                            <th scope="col" style="width: 200px;">Detalles del trabajo</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let job of jobs">
+                        <tr>
+                            <td>
+                                {{job.attributes.title}}
+                            </td>
+                            <td>
 
-                            <div class="d-flex justify-content-center align-items-center">
-                                <img style="width: 3em; height: 3em; object-fit: cover;"
-                                    tooltip={{job.attributes.company.data.attributes.name}}
-                                    [src]="job.attributes.company.data.attributes.logo" alt="company logo">
-                            </div>
-                        </td>
-                        <td>
-                            <ng-container
-                                *ngIf="job.attributes.company.data.attributes.response_time_in_days.min || job.attributes.company.data.attributes.response_time_in_days.max">
-                                <div>
-                                    {{job.attributes.company.data.attributes.response_time_in_days.min ?
-                                    (job.attributes.company.data.attributes.response_time_in_days.min + "día(s)") :
-                                    'No se sabe'}}
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <img style="width: 3em; height: 3em; object-fit: cover;"
+                                        tooltip={{job.attributes.company.data.attributes.name}}
+                                        [src]="job.attributes.company.data.attributes.logo" alt="company logo">
                                 </div>
-                                -
-                                <div>
-                                    {{job.attributes.company.data.attributes.response_time_in_days.max ?
-                                    (job.attributes.company.data.attributes.response_time_in_days.max + "día(s)") :
-                                    'No se sabe'}}
-                                </div>
-                            </ng-container>
-                            <ng-container
-                                *ngIf="!job.attributes.company.data.attributes.response_time_in_days.min && !job.attributes.company.data.attributes.response_time_in_days.min">
-                                No se sabe
-                            </ng-container>
+                            </td>
+                            <td>
+                                <ng-container
+                                    *ngIf="job.attributes.company.data.attributes.response_time_in_days.min || job.attributes.company.data.attributes.response_time_in_days.max">
+                                    <div>
+                                        {{job.attributes.company.data.attributes.response_time_in_days.min ?
+                                        (job.attributes.company.data.attributes.response_time_in_days.min + "día(s)") :
+                                        'No se sabe'}}
+                                    </div>
+                                    -
+                                    <div>
+                                        {{job.attributes.company.data.attributes.response_time_in_days.max ?
+                                        (job.attributes.company.data.attributes.response_time_in_days.max + "día(s)") :
+                                        'No se sabe'}}
+                                    </div>
+                                </ng-container>
+                                <ng-container
+                                    *ngIf="!job.attributes.company.data.attributes.response_time_in_days.min && !job.attributes.company.data.attributes.response_time_in_days.min">
+                                    No se sabe
+                                </ng-container>
 
-                        </td>
-                        <td>
-                            <a type="button" class="btn info" [href]="job.links.public_url" target="_blank">
-                                Enlace
-                            </a>
+                            </td>
+                            <td>
+                                <a type="button" class="btn info" [href]="job.links.public_url" target="_blank">
+                                    Enlace
+                                </a>
 
-                        </td>
-                        <td class="options">
-                            <button type="button" class="btn info" (click)="showDetail(job)">
-                                Detalle <i class="tim-icons icon-minimal-right"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </td>
+                            <td class="options">
+                                <button type="button" class="btn info" (click)="showDetail(job)">
+                                    Detalle <i class="tim-icons icon-minimal-right"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <div class="d-flex flex-column " *ngIf="jobs">
-                <div class="flex-wrap d-flex justify-content-center">
-                    <pagination [boundaryLinks]="showBoundaryLinks" [maxSize]="maxSize" [rotate]="false"
-                        [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
-                        [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate"
-                        [totalItems]="meta.total_pages * meta.per_page" (pageChanged)="onPageChanged($event)">
-                    </pagination>
-                </div>
-                <div class="flex-wrap d-flex justify-content-center">
-                    Páginas: {{meta.total_pages}}
+                <div class="d-flex flex-column " *ngIf="jobs">
+                    <div class="flex-wrap d-flex justify-content-center">
+                        <pagination [boundaryLinks]="showBoundaryLinks" [maxSize]="maxSize" [rotate]="false"
+                            [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+                            [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate"
+                            [totalItems]="meta.total_pages * meta.per_page" (pageChanged)="onPageChanged($event)">
+                        </pagination>
+                    </div>
+                    <div class="flex-wrap d-flex justify-content-center">
+                        Páginas: {{meta.total_pages}}
+                    </div>
                 </div>
             </div>
-        </div>
+        </ng-template>
     </div>
 </div>
 
