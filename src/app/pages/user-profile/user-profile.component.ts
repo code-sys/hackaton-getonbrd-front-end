@@ -12,14 +12,13 @@ import { UserService } from 'src/app/services/users/user.service';
 })
 export class UserProfileComponent implements OnInit {
     photoUser: string;
-
-    userProfileForm: FormGroup = new FormGroup({});
+    userProfileForm: FormGroup;
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
         private toastrService: ToastrService,
         private userService: UserService,
-        private router: Router,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -29,9 +28,8 @@ export class UserProfileComponent implements OnInit {
 
     createUserProfileForm() {
         this.userProfileForm = this.fb.group({
-            id: null,
             username: null,
-            name: new FormControl(
+            name: [
                 '',
                 Validators.compose([
                     Validators.required,
@@ -39,9 +37,8 @@ export class UserProfileComponent implements OnInit {
                     Validators.maxLength(120),
                     Validators.pattern('[A-Za-z ]+'),
                 ]),
-            ),
-            status: null,
-            motherLastName: new FormControl(
+            ],
+            motherLastName: [
                 '',
                 Validators.compose([
                     Validators.required,
@@ -49,8 +46,8 @@ export class UserProfileComponent implements OnInit {
                     Validators.maxLength(120),
                     Validators.pattern('[A-Za-z ]+'),
                 ]),
-            ),
-            fatherLastName: new FormControl(
+            ],
+            fatherLastName: [
                 '',
                 Validators.compose([
                     Validators.required,
@@ -58,9 +55,9 @@ export class UserProfileComponent implements OnInit {
                     Validators.maxLength(120),
                     Validators.pattern('[A-Za-z ]+'),
                 ]),
-            ),
-            techSkills: new FormControl(''),
-            softSkills: new FormControl(''),
+            ],
+            techSkills: null,
+            softSkills: null,
             updateAt: null,
         });
     }

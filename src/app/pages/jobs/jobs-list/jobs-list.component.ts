@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IJob, IMeta, PaginationParams, INgxPaginationPage } from '@core/interfaces';
 import { JobsService } from '../../../services/jobs/jobs.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-jobs-list',
@@ -11,27 +12,32 @@ import { JobsService } from '../../../services/jobs/jobs.service';
 export class JobsListComponent implements OnInit, OnDestroy {
     jobs: IJob[];
     meta: IMeta;
-    showBoundaryLinks = true;    
-    maxSize = 5;
+    showModalDetail: boolean = false;
+    showBoundaryLinks: boolean = true;
+    maxSize: number = 5;
+    jobSelected: IJob;
     private unsubscribe$ = new Subject();
+    @ViewChild('modalJobDetail', { static: false })
+    readonly modalJobDetail: ModalDirective;
     paginationParams: PaginationParams = {
         per_page: 10,
         page: 1,
         category: '',
     };
+
     constructor(private jobsService: JobsService) {}
 
     ngOnInit(): void {
         this.setJobs();
     }
 
-    setJobs() {        
+    setJobs() {
         this.jobsService.getAllJobs(this.paginationParams).subscribe({
             next: (resp) => {
                 this.jobs = resp.data;
                 this.meta = resp.meta;
             },
-            error: (error) => {
+            error: (_error) => {
                 this.jobs = [];
                 this.meta = {
                     page: 1,
@@ -43,7 +49,7 @@ export class JobsListComponent implements OnInit, OnDestroy {
     }
 
     onPageChanged(page: INgxPaginationPage) {
-        this.paginationParams.page =  page.page;
+        this.paginationParams.page = page.page;
         this.setJobs();
     }
 
@@ -52,9 +58,16 @@ export class JobsListComponent implements OnInit, OnDestroy {
         this.unsubscribe$.complete();
     }
 
-    filterCategoriesList(category: string){
+    filterCategoriesList(category: string) {
         this.paginationParams.page = 1;
-        this.paginationParams.category = category;//envio una categoria
+        this.paginationParams.category = category; //envio una categoria
         this.setJobs();
+    }
+
+    
+    showDetail(job: IJob) {
+        this.jobSelected = job;
+        this.showModalDetail = true;
+        this.modalJobDetail.show();
     }
 }

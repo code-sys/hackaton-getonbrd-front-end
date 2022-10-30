@@ -54,7 +54,7 @@
 
                         </td>
                         <td class="options">
-                            <button type="button" class="btn info">
+                            <button type="button" class="btn info" (click)="showDetail(job)">
                                 Detalle <i class="tim-icons icon-minimal-right"></i>
                             </button>
                         </td>
@@ -105,3 +105,22 @@
         ⛔
     </ng-container>
 </ng-template>
+
+
+<!-- Modal Job Detail -->
+<div bsModal class="modal fade" #modalJobDetail="bs-modal" [config]="{backdrop: 'static'}"  
+    (onHidden)="showModalDetail = false" tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content card">
+            <div class="modal-header">
+                <h5>{{jobSelected?.attributes?.title}}</h5>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="modalJobDetail.hide()">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <app-jobs-detail [inputJob]="jobSelected" (close)="modalJobDetail.hide()" *ngIf="showModalDetail">
+            </app-jobs-detail>
+        </div>
+    </div>
+</div>

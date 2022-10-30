@@ -9,13 +9,6 @@ const ROUTER_COMMON = [
         class: 'azure',
     },
     {
-        path: '/attendance',
-        title: 'asistencia',
-        id: 'sibar-attendance',
-        icon: 'fa-solid fa-clock',
-        class: 'azure',
-    },
-    {
         path: '/jobs/jobs-list',
         title: 'Trabajos',
         id: 'sibar-contacts',
@@ -31,38 +24,4 @@ const ROUTER_COMMON = [
     },
 ];
 
-export const ROUTES: RouteInfo[] = [
-    ...ROUTER_COMMON,
-    {
-        path: '/calendar-admin',
-        title: 'calendario',
-        id: 'sibar-calendar-admin',
-        icon: 'fa-regular fa-calendar',
-        class: 'yellow',
-    },
-    {
-        path: '/settings',
-        title: 'opciones',
-        id: 'sibar-settings',
-        icon: 'fa-solid fa-gear',
-        class: 'azure',
-    },
-];
-
-export const ROUTES_EMPLOYEE: RouteInfo[] = [
-    ...ROUTER_COMMON,
-    {
-        path: '/calendar-view',
-        title: 'calendario',
-        id: 'sibar-calendar-view',
-        icon: 'fa-regular fa-calendar',
-        class: 'yellow',
-    },
-    {
-        path: '/user-profile',
-        title: 'perfil',
-        id: 'sibar-user-profile',
-        icon: 'fa-solid fa-gear',
-        class: 'azure',
-    },
-];
+export const ROUTES: RouteInfo[] = [...ROUTER_COMMON];
