@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IJob, IMeta, PaginationParams, INgxPaginationPage, IChangeSearch } from '@core/interfaces';
+import { IJob, IMeta, PaginationParams, INgxPaginationPage } from '@core/interfaces';
 import { JobsService } from '../../../services/jobs/jobs.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { FilterJobType } from '@core/interfaces/filter-job-type';
 import { SearchJobsService } from '../../../services/search-jobs/search-jobs.service';
 
 @Component({
@@ -12,8 +13,7 @@ import { SearchJobsService } from '../../../services/search-jobs/search-jobs.ser
 })
 export class JobsListComponent implements OnInit, OnDestroy {
     jobs: IJob[];
-    meta: IMeta;
-    interval;
+    meta: IMeta;    
     showModalDetail: boolean = false;
     showBoundaryLinks: boolean = true;
     maxSize: number = 5;
@@ -24,7 +24,10 @@ export class JobsListComponent implements OnInit, OnDestroy {
     paginationParams: PaginationParams = {
         per_page: 10,
         page: 1,
-        category: '',
+        filterJobType: {
+            url: 'categories',
+            code: 'programming',            
+        },
     };
 
     constructor(private jobsService: JobsService, private searchJobs: SearchJobsService) {}
@@ -77,12 +80,12 @@ export class JobsListComponent implements OnInit, OnDestroy {
         this.unsubscribe$.complete();
     }
 
-    filterCategoriesList(category: string) {
+    filterJobList(filterJobType: FilterJobType) {
         this.paginationParams.page = 1;
-        this.paginationParams.category = category; //send a category
+        this.paginationParams.filterJobType = filterJobType; //envio una categoria
         this.setJobs();
     }
-
+    
     showDetail(job: IJob) {
         this.jobSelected = job;
         this.showModalDetail = true;
@@ -91,16 +94,6 @@ export class JobsListComponent implements OnInit, OnDestroy {
 
     onSearchJob(word: string) {
         this.paginationParams.page = 1;
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
-        this.interval = setInterval(async () => {
-            if (!word) {
-                this.setJobs();
-            } else {
-                this.searchJobsWihAWord(word);
-            }
-            clearTimeout(this.interval);
-        }, 500);
+        this.searchJobsWihAWord(word);
     }
 }
