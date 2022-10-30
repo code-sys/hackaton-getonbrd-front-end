@@ -1,7 +1,7 @@
 <div class="content">
     <h1>Lista de trabajos</h1>
     <div class="row">
-        <app-filter-jobs (categorySelected)="filterCategoriesList($event)"></app-filter-jobs>
+        <app-filter-jobs class="w-100" (categorySelected)="filterCategoriesList($event)" (searchJobEmitter)="onSearchJob($event)"></app-filter-jobs>
         <div class="table-responsive">
             <table class="table" style="max-height: 700px  ">
                 <thead class=" text-primary">
@@ -108,7 +108,7 @@
 
 
 <!-- Modal Job Detail -->
-<div bsModal class="modal fade" #modalJobDetail="bs-modal" [config]="{backdrop: 'static'}"  
+<div bsModal class="modal fade" #modalJobDetail="bs-modal" [config]="{backdrop: 'static'}"
     (onHidden)="showModalDetail = false" tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
     <div class="modal-dialog modal-xl">
         <div class="modal-content card">
