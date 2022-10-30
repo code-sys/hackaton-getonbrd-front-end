@@ -16,12 +16,11 @@ import { PerksService } from 'src/app/services/perk/perks.service';
 import { SenioritiesService } from 'src/app/services/seniority/seniorities.service';
 
 @Component({
-  selector: 'app-filter-jobs',
-  templateUrl: './filter-jobs.component.html',
-  styleUrls: ['./filter-jobs.component.scss']
+    selector: 'app-filter-jobs',
+    templateUrl: './filter-jobs.component.html',
+    styleUrls: ['./filter-jobs.component.scss'],
 })
 export class FilterJobsComponent implements OnInit {
-
   categoriesList: Category[] = [];
   companiesList: ItemCompany[] = [];
   modalitiesList: ItemModality[] = [];
@@ -33,7 +32,9 @@ export class FilterJobsComponent implements OnInit {
     per_page: 15,
     page: 1,
   };
-  @Output() filterSelected: EventEmitter<FilterJobType> = new EventEmitter<FilterJobType>();  
+  @Output() filterSelected: EventEmitter<FilterJobType> = new EventEmitter<FilterJobType>();
+  @Output() searchJobEmitter: EventEmitter<string> = new EventEmitter<string>();
+  resetSearchJob: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
@@ -53,6 +54,10 @@ export class FilterJobsComponent implements OnInit {
     this.listSeniorities();
     this.listCities();
     this.listPerks();
+    this.searchJob.valueChanges.subscribe((word) => {
+      this.onSearchJob(word);
+      this.resetSearchJob = false;
+  });
   }
 
   buildForm(){
@@ -63,9 +68,9 @@ export class FilterJobsComponent implements OnInit {
       seniority: [''],
       city: [''],
       perk: [''],
+      searchJob: [''],
     }); 
   }
-
   get controlCategory(){
     return this.formFilter.get('category');
   }
@@ -88,6 +93,10 @@ export class FilterJobsComponent implements OnInit {
 
   get controlPerk(){
     return this.formFilter.get('perk');
+  }
+
+  get searchJob() {
+    return this.formFilter.get('searchJob');
   }
 
   listCategories(){
@@ -197,6 +206,9 @@ export class FilterJobsComponent implements OnInit {
       url: 'perks',
     };
     this.filterSelected.emit(filterType);
-  }
+  }    
 
+  onSearchJob(word: string) {
+    this.searchJobEmitter.emit(word);
+  }
 }

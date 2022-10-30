@@ -9,7 +9,7 @@ import { FilterJobType } from '@core/interfaces/filter-job-type';
     providedIn: 'root',
 })
 export class JobsService {
-    private baseUrl = environment.GET_ON_BOARD_API + '/categories/programming/jobs'; //por defecto viene filtrado por programming
+    private baseUrl = environment.GET_ON_BOARD_API + '/categories/programming/jobs'; //default as programming category
     constructor(private httpClient: HttpClient) {}
 
     setBaseUrlWithCategory(filterJobType: FilterJobType): void {
