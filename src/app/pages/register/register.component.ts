@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ThemeService } from '../../services/theme/theme.service';
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private toastrService: ToastrService,
         private themeService: ThemeService,
-        private userService: UserService,
+        private userService: UserService
     ) {}
 
     ngOnInit(): void {
@@ -27,22 +27,11 @@ export class RegisterComponent implements OnInit {
 
     createFormRegister() {
         this.registerForm = this.fb.group({
-            username: new FormControl('', [
-                Validators.required,
-                Validators.email,
-                Validators.minLength(6),
-                Validators.maxLength(50),
-            ]),
-            name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-            fatherLastName: new FormControl('', [
-                Validators.required,
-                Validators.minLength(2),
-            ]),
-            motherLastName: new FormControl('', [
-                Validators.required,
-                Validators.minLength(2),
-            ]),
-            phone: new FormControl('', [Validators.required, Validators.minLength(9)]),
+            username: ['', [Validators.required, Validators.email, Validators.minLength(6), Validators.maxLength(50)]],
+            name: ['', [Validators.required, Validators.minLength(2)]],
+            fatherLastName: ['', [Validators.required, Validators.minLength(2)]],
+            motherLastName: ['', [Validators.required, Validators.minLength(2)]],
+            phone: ['', [Validators.required, Validators.minLength(9)]],
         });
     }
 

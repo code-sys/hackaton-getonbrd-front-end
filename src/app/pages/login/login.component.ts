@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { startAuthentication } from '@simplewebauthn/browser';
-import {
-    AuthenticationCredentialJSON,
-    PublicKeyCredentialRequestOptionsJSON,
-} from '@simplewebauthn/typescript-types';
+import { AuthenticationCredentialJSON, PublicKeyCredentialRequestOptionsJSON } from '@simplewebauthn/typescript-types';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -29,7 +26,7 @@ export class LoginComponent implements OnInit {
         private fb: FormBuilder,
         private router: Router,
         private toastrService: ToastrService,
-        private themeService: ThemeService,
+        private themeService: ThemeService
     ) {}
 
     ngOnInit() {
@@ -39,13 +36,11 @@ export class LoginComponent implements OnInit {
 
     createFormLogin() {
         this.loginForm = this.fb.group({
-            username: new FormControl(this.userStorage == null ? '' : this.userStorage, [
-                Validators.required,
-                Validators.email,
-                Validators.minLength(6),
-                Validators.maxLength(50),
-            ]),
-            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+            username: [
+                this.userStorage == null ? '' : this.userStorage,
+                [Validators.required, Validators.email, Validators.minLength(6), Validators.maxLength(50)],
+            ],
+            password: ['', [Validators.required, Validators.minLength(6)]],
         });
     }
 
