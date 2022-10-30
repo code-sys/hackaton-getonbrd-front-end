@@ -7,9 +7,10 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SharedModule } from '../../shared/shared.module';
+import { JobsListCardsComponent } from './jobs-list-cards/jobs-list-cards.component';
 
 @NgModule({
-    declarations: [JobsListComponent],
+    declarations: [JobsListComponent, JobsListCardsComponent],
     imports: [
         CommonModule,
         JobsRoutingModule,
