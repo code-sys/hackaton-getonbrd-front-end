@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PaginationParams } from '@core/interfaces';
 import { Category } from '@core/interfaces/category';
@@ -8,6 +8,7 @@ import { ItemCompany } from '@core/interfaces/list-company';
 import { ItemModality } from '@core/interfaces/list-modality';
 import { ItemPerk } from '@core/interfaces/list-perk';
 import { ItemSeniority } from '@core/interfaces/list-seniority';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { CategoriesService } from 'src/app/services/category/categories.service';
 import { CompaniesService } from 'src/app/services/company/companies.service';
 import { LocationsService } from 'src/app/services/location/locations.service';
@@ -20,7 +21,7 @@ import { SenioritiesService } from 'src/app/services/seniority/seniorities.servi
     templateUrl: './filter-jobs.component.html',
     styleUrls: ['./filter-jobs.component.scss'],
 })
-export class FilterJobsComponent implements OnInit {
+export class FilterJobsComponent implements OnInit, OnDestroy {
   categoriesList: Category[] = [];
   companiesList: ItemCompany[] = [];
   modalitiesList: ItemModality[] = [];
@@ -35,6 +36,7 @@ export class FilterJobsComponent implements OnInit {
   @Output() filterSelected: EventEmitter<FilterJobType> = new EventEmitter<FilterJobType>();
   @Output() searchJobEmitter: EventEmitter<string> = new EventEmitter<string>();
   resetSearchJob: boolean = false;
+  unsucribeObservable$: Subject<boolean> = new Subject();
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
@@ -54,7 +56,9 @@ export class FilterJobsComponent implements OnInit {
     this.listSeniorities();
     this.listCities();
     this.listPerks();
-    this.searchJob.valueChanges.subscribe((word) => {
+    this.searchJob.valueChanges
+    .pipe(takeUntil(this.unsucribeObservable$), debounceTime(300), distinctUntilChanged())
+    .subscribe((word) => {
       this.onSearchJob(word);
       this.resetSearchJob = false;
   });
@@ -210,5 +214,10 @@ export class FilterJobsComponent implements OnInit {
 
   onSearchJob(word: string) {
     this.searchJobEmitter.emit(word);
+  }
+
+  ngOnDestroy(): void {
+    this.unsucribeObservable$.next(true);
+    this.unsucribeObservable$.complete();
   }
 }

@@ -13,8 +13,7 @@ import { SearchJobsService } from '../../../services/search-jobs/search-jobs.ser
 })
 export class JobsListComponent implements OnInit, OnDestroy {
     jobs: IJob[];
-    meta: IMeta;
-    interval;
+    meta: IMeta;    
     showModalDetail: boolean = false;
     showBoundaryLinks: boolean = true;
     maxSize: number = 5;
@@ -95,16 +94,6 @@ export class JobsListComponent implements OnInit, OnDestroy {
 
     onSearchJob(word: string) {
         this.paginationParams.page = 1;
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
-        this.interval = setInterval(async () => {
-            if (!word) {
-                this.setJobs();
-            } else {
-                this.searchJobsWihAWord(word);
-            }
-            clearTimeout(this.interval);
-        }, 500);
+        this.searchJobsWihAWord(word);
     }
 }
