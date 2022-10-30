@@ -10,10 +10,6 @@ import { UserUpdate, User, Response, UserForgotPassword } from '@core/interfaces
 export class UserService {
     constructor(private http: HttpClient) {}
 
-    getAllUsers(): Observable<User[]> {
-        return this.http.get<User[]>(`${environment.API_URL}/users`);
-    }
-
     createUser(user: UserUpdate): Observable<Response> {
         return this.http.post<Response>(`${environment.API_URL}/users`, user);
     }
@@ -36,13 +32,7 @@ export class UserService {
         return this.http.get<User>(`${environment.API_URL}/users/profile`);
     }
 
-    sendNotification(users: User[]): Observable<Response> {
-        return this.http.post<Response>(`${environment.API_URL}/notificacion/send`, {
-            users: users,
-        });
-    }
-
-    uploadPhoto(file): Observable<Response> {
+    uploadPhoto(file : File): Observable<Response> {
         const formData: FormData = new FormData();
         formData.append('file', file);
         return this.http.post<Response>(`${environment.API_URL}/users/photo`, formData);

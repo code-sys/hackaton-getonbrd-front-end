@@ -6,6 +6,16 @@
     $border-line-style: dotted;
     $border-line-color: WhiteSmoke;
 
+    *::-webkit-scrollbar-track {
+        background: #3f4366;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: var(--mcs-primary);
+        border-radius: 6px;
+        border: 3px solid #535672;
+    }
+
     // Styles ngSelect for darktheme
     .ng-option {
         background-color: #27293c !important;
@@ -83,8 +93,15 @@
 
     div {
         color: WhiteSmoke !important;
+        .swal2-html-container {
+            color: rgb(36, 32, 32) !important;
+        }
+        .swal2-title {
+            color: rgb(36, 32, 32) !important;
+        }
+
         .tooltip-inner {
-            color : black !important;
+            color: black !important;
         }
     }
 }

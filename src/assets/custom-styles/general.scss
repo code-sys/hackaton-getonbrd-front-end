@@ -80,6 +80,21 @@ ul.search-list {
         background: #e14eca !important;
     }
 }
+
+.swal2-warning {
+    .swal2-icon-content {
+        border-color: #facea8 !important;
+        color: #f8bb86 !important;
+    }
+}
+
+.swal2-info {
+    .swal2-icon-content {
+        border-color: #9de0f6 !important;
+        color: #3fc3ee !important;
+    }
+}
+
 div {
     color: #222a42;
 }

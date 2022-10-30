@@ -29,7 +29,7 @@
             <div class=" row">
               <div class=" col-md-7 pr-md-1">
                 <div class=" form-group">
-                  <label>Username</label>
+                  <label>Nombre de Usuario</label>
                   <input class=" form-control" readonly placeholder="User" type="text" formControlName="username" />
                 </div>
               </div>
@@ -111,8 +111,8 @@
             <div class="row">
               <div class="col-md-12 pl-md-1">
                 <div class=" form-group">
-                  <label> Habilidades Tecnicas </label>
-                  <textarea class="form-control" placeholder="Habilidades Tecnicas" rows="10"
+                  <label> Habilidades Técnicas </label>
+                  <textarea class="form-control" placeholder="Habilidades Técnicas" rows="10"
                     formControlName="techSkills"> </textarea>
                 </div>
               </div>
@@ -130,7 +130,7 @@
               <div class="col-md-12 pl-md-1">
                 <div class=" form-group">
                   <label> Experiencia Laboral</label>
-                  <textarea class="form-control" placeholder="Habilidades Blandas" rows="10"
+                  <textarea class="form-control" placeholder="Experiencia Laboral" rows="10"
                     formControlName="experience"> </textarea>
                 </div>
               </div>
@@ -142,7 +142,7 @@
           <div class="d-flex">
             <div class="p-2"> <button type="button" (click)="showCVPdf()" class="btn outline danger">
                 <i class="fa fa-file-pdf"></i> &nbsp;&nbsp;
-                Descargar Curriculum Vitae
+                Curriculum Vitae
               </button></div>
             <div class="ml-auto p-2">
               <button class="btn info  ml-5" [disabled]="userProfileForm.invalid" id="btn-update-profile"
@@ -153,16 +153,13 @@
       </div>
 
       <div class=" card">
-        <div class="card-header mt-3">
-          <h5 class="title" id="title-danger-zone">Danger Zone</h5>
-        </div>
-        <div class="card-body  ml-4">
+        <div class="card-body  ml-3">
           <div class=" row">
-            <div class=" col-md-5 pr-md-1">
+            <div class=" col-md-5 ">
               <div class=" form-group">
                 <button type="button" [swal]="swalLogout" class="btn outline danger"> <i
                     class="tim-icons  icon-button-power"></i> &nbsp;&nbsp;
-                  Logout</button>
+                  Cerrar sesión</button>
               </div>
               <div class=" form-group">
                 <button type="button" [routerLink]="['/change-password']" class="btn outline danger"> <i

@@ -2,21 +2,20 @@
 
 @import './assets/custom-styles/dark-theme.scss';
 
+swal {
+    display: none !important;
+}
 
-swal{
-    display:  none !important;
- }
+*::-webkit-scrollbar {
+    width: 12px;
+}
 
- *::-webkit-scrollbar {
-     width: 12px;
- }
+*::-webkit-scrollbar-track {
+    background: #bfc2db;
+}
 
- *::-webkit-scrollbar-track {
-     background: #3f4366;
- }
-
- *::-webkit-scrollbar-thumb {
-     background-color: var(--mcs-primary);
-     border-radius: 6px;
-     border: 3px solid #535672;
- }
+*::-webkit-scrollbar-thumb {
+    background-color: #bfc2db;
+    border-radius: 6px;
+    border: 3px solid #abaec2;
+}

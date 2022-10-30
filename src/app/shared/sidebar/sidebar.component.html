@@ -1,12 +1,12 @@
 <div>
   <a>
-    <div>
-      <img class="logo"
+    <div class="mt-4">
+      <img class="logo bounce animated" id="logo-gentleman"
         src="https://gentleman-programming-hackathon.netlify.app/static/media/mustache-logo.e2b002a2.svg" />
     </div>
   </a>
 </div>
-<div class="sidebar-wrapper" (swiperight)="onSwipe($event)" (swipeleft)="onSwipe($event)">
+<div class="sidebar-wrapper mt-4" (swiperight)="onSwipe($event)" (swipeleft)="onSwipe($event)">
   <ul class="nav">
     <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{ menuItem.class }} nav-item">
       <a [routerLink]="[menuItem.path]" id="{{menuItem.id}}">
