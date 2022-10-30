@@ -15,7 +15,6 @@ export interface UserLoginResponse {
 export interface User {
     id?: number;
     username: string;
-    role: string;
     createdAt?: Date;
     updateAt?: Date;
     name: string;
@@ -32,11 +31,12 @@ export interface User {
 export interface UserUpdate {
     fatherLastName: string;
     motherLastName: string;
-    status: string;
     name: string;
     username: string;
+    experience?: string;
     techSkills?: string;
     softSkills?: string;
+    phone: string;
 }
 
 export interface ChangePassword {
@@ -55,4 +55,8 @@ export interface UserReport {
     fatherLastName: string;
     motherLastName: string;
     status: string;
+}
+
+export interface UserForgotPassword {
+    username: string;
 }

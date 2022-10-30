@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PdfCVData } from '@core/interfaces/pdf-cv-data';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { GenerateCvPdfService } from 'src/app/services/curriculum-vitae/generate-cv-pdf.service';
 import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
@@ -18,7 +20,8 @@ export class UserProfileComponent implements OnInit {
         private authService: AuthService,
         private toastrService: ToastrService,
         private userService: UserService,
-        private router: Router
+        private router: Router,
+        private generateCvPdfService: GenerateCvPdfService
     ) {}
 
     ngOnInit() {
@@ -56,9 +59,11 @@ export class UserProfileComponent implements OnInit {
                     Validators.pattern('[A-Za-z ]+'),
                 ]),
             ],
+            phone: ['', [Validators.required, Validators.minLength(9)]],
             techSkills: null,
             softSkills: null,
             updateAt: null,
+            experience: null,
         });
     }
 
@@ -89,5 +94,22 @@ export class UserProfileComponent implements OnInit {
         this.authService.logout();
         this.router.navigate(['/login']);
         localStorage.removeItem('user');
+    }
+
+    showCVPdf() {
+        const myProfileData: PdfCVData = {
+            experience: this.userProfileForm.get('experience')?.value,
+            fullname:
+                this.userProfileForm.get('name')?.value +
+                ' ' +
+                this.userProfileForm.get('fatherLastName')?.value +
+                ' ' +
+                this.userProfileForm.get('motherLastName')?.value,
+            photo: this.photoUser,
+            softSkills: this.userProfileForm.get('softSkills')?.value,
+            technicalSkills: this.userProfileForm.get('techSkills')?.value,
+            phone: this.userProfileForm.get('phone')?.value,
+        };
+        this.generateCvPdfService.exportAsPDF(myProfileData);
     }
 }

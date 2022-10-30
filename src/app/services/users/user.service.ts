@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { UserUpdate, User, Response } from '../../common/interfaces';
+import { UserUpdate, User, Response, UserForgotPassword } from '@core/interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -22,14 +22,8 @@ export class UserService {
         return this.http.patch<Response>(`${environment.API_URL}/users`, user);
     }
 
-    deleteUser(id: number): Observable<Response> {
-        return this.http.delete<Response>(`${environment.API_URL}/users/${id}`);
-    }
-
-    resetUserPassword(username: string): Observable<Response> {
-        return this.http.post<Response>(`${environment.API_URL}/auth/reset-password`, {
-            username: username,
-        });
+    resetUserPassword(userForgotPassword: UserForgotPassword): Observable<Response> {
+        return this.http.post<Response>(`${environment.API_URL}/auth/reset-password`, userForgotPassword);
     }
 
     saveUserNotification(token: PushSubscription): Observable<Response> {
