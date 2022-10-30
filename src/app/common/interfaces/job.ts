@@ -123,3 +123,8 @@ export interface INgxPaginationPage {
     itemsPerPage: number;
     page: number;
 }
+
+export interface IChangeSearch {
+    reset: boolean;
+    word: string;
+}
