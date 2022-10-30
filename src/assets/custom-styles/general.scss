@@ -71,3 +71,15 @@ ul.search-list {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+.pagination {
+    a {
+        color: #222a42 !important;
+    }
+    a:hover {
+        background: #e14eca !important;
+    }
+}
+div {
+    color: #222a42;
+}

@@ -74,4 +74,17 @@
     p {
         color: WhiteSmoke !important;
     }
+
+    .pagination {
+        a {
+            color: WhiteSmoke !important;
+        }
+    }
+
+    div {
+        color: WhiteSmoke !important;
+        .tooltip-inner {
+            color : black !important;
+        }
+    }
 }

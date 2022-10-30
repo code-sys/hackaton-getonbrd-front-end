@@ -4,25 +4,31 @@
             <div class="card shadow">
                 <div class="card-header border-0">
                     <h3 id="titleHome" class="mb-3">Bienvenido</h3>
-
                 </div>
             </div>
-            <div class="card shadow">
+            <div class="card shadow pb-4">
                 <div class="card-header border-0 container d-flex justify-content-center">
-                    <h3 id="title-indicator-attendance" class="mb-3"><strong>Indicador de Asistencia</strong></h3>
+                    <h3 id="title-indicator-attendance" class="mb-3"><strong>Trabajos Destacados</strong></h3>
                 </div>
-
-                <div class="card-header border-0 container d-flex align-items-center flex-column">
-                    <h4 id="title-current-week" class="mb-3 p-2">Semana actual</h4>
-                    <div class="d-flex current-week-title">
-
-                    </div>
-
-                    <div class="d-flex">
-
+                <div class="card-header">
+                    <div class="d-flex flex-column ">
+                        <div class="row d-flex justify-content-center item-job">
+                            <div class="card-header" *ngFor="let job of jobs" (click)="showDetail(job)">
+                                <div class="d-flex p-5 mr-3 ">
+                                    <img style="width: 12em; height: 12em; object-fit: cover;"
+                                        [src]="job.attributes.company.data.attributes.logo" alt="company logo">
+                                </div>
+                                <p class="text-center"><strong>Puesto</strong></p>
+                                <p class="text-center">{{job.attributes.title}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+</div>
+
+
+<app-jobs-detail *ngIf="showModalDetail" [inputJob]="jobSelected" (close)="showModalDetail = false;">
+</app-jobs-detail>
