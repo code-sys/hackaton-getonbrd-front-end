@@ -1,0 +1,33 @@
+::ng-deep .custom-tab > a {
+    color: #5d75fa;
+    font-weight: bold;
+}
+
+::ng-deep .custom-tab > .nav-link.active {
+    background: transparent !important;
+    color: #5d75fa;
+}
+
+h5 {
+    font-weight: bold;
+    font-size: 1.24em;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.85em;
+    align-self: center;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+}
+
+.contenido-end {
+    align-self: flex-end;
+}
+
+div {
+    color: whitesmoke;
+}

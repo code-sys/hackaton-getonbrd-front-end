@@ -1,13 +1,10 @@
 <form [formGroup]="formFilter">
   <div class="form-group">
-    <select 
-    class="form-control" 
-    formControlName="category" 
-    (change)="selectCategory()">
+    <select class="form-control" formControlName="category" (change)="selectCategory()">
       <option value="">Seleccionar categoría</option>
       <option [value]="category.attributes.dimension" *ngFor="let category of categoriesList">
         {{ category.attributes.name }}
       </option>
-  </select>
+    </select>
   </div>
 </form>
