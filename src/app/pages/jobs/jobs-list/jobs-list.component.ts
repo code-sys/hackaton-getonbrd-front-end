@@ -117,8 +117,8 @@ export class JobsListComponent implements OnInit, OnDestroy {
     }
 
     onPageChanged(page: INgxPaginationPage) {
-        // TODO la pg cambia en otra parte del código y realiza un segundo llamado
-        //      verificar cambios en la propiedad this.meta
+        // TODO la pg cambia en otra parte el código relacionado con la paginación
+        //      y se realiza un segundo llamado, verificar cambios en la propiedad this.meta.
         this.paginationParams.page = page.page;
         this.setJobs();
     }
