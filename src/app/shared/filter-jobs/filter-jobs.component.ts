@@ -57,7 +57,7 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
         this.listCities();
         this.listPerks();
         this.searchJob.valueChanges
-            .pipe(takeUntil(this.unsucribeObservable$), debounceTime(300), distinctUntilChanged())
+            .pipe(takeUntil(this.unsucribeObservable$), debounceTime(800), distinctUntilChanged())
             .subscribe((word) => {
                 this.onSearchJob(word);
                 this.resetSearchJob = false;

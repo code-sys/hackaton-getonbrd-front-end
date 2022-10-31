@@ -10,18 +10,13 @@ import { ThemeService } from 'src/app/services/theme/theme.service';
 })
 export class NavigationBarComponent implements OnInit {
     darkTheme: boolean = false;
-    menuItems: any[] = [];
+    menuItems: any[] = ROUTES;
 
     constructor(private themeService: ThemeService, private authService: AuthService) {}
 
     ngOnInit(): void {
         this.tabNavigation();
         this.enabledDarkTheme();
-        this.getRouterOfRoles();
-    }
-
-    getRouterOfRoles() {
-        this.menuItems = ROUTES.filter((menuItem) => menuItem);
     }
 
     enabledDarkTheme() {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Constant } from '@core/constants/Constant';
 import { ToastrService } from 'ngx-toastr';
 import { jsPDF } from 'jspdf';
 import { PdfCVData } from '@core/interfaces/pdf-cv-data';
+
 @Injectable({
     providedIn: 'root',
 })

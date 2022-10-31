@@ -5,32 +5,31 @@ import { AuthService } from '../auth/auth.service';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class InterceptorService {
-  constructor(private spinnerService: SpinnerService, private authService: AuthService) {}
-  // Servicio para interceptar llamas HTTP para llamar al spinner de carga asi como envio de token en las cabeceras
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.spinnerService.initSpinner();
-    if (!req.url.includes('auth/login')) {
-      const userValue = this.authService.userValue;
-      if (userValue !== null) {
-        const authReq = req.clone({
-          setHeaders: {
-            Authorization: 'Bearer ' + userValue.token,
-          },
-        });
-        return next.handle(authReq).pipe(
-          finalize(() => {
-            this.spinnerService.stopSpinner();
-          }),
+    constructor(private spinnerService: SpinnerService, private authService: AuthService) {}
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        this.spinnerService.initSpinner();
+        if (!req.url.includes('auth/login')) {
+            const userValue = this.authService.userValue;
+            if (userValue !== null) {
+                const authReq = req.clone({
+                    setHeaders: {
+                        Authorization: 'Bearer ' + userValue.token,
+                    },
+                });
+                return next.handle(authReq).pipe(
+                    finalize(() => {
+                        this.spinnerService.stopSpinner();
+                    })
+                );
+            }
+        }
+        return next.handle(req).pipe(
+            finalize(() => {
+                this.spinnerService.stopSpinner();
+            })
         );
-      }
     }
-    return next.handle(req).pipe(
-      finalize(() => {
-        this.spinnerService.stopSpinner();
-      }),
-    );
-  }
 }
