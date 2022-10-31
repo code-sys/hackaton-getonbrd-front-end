@@ -22,14 +22,14 @@ export class JobsService {
         params = params.set('page', queryParameters.page);
         params = params.set('expand', '["company"]');
 
-        this.setBaseUrlWithCategory(queryParameters.filterJobType);
-        // if (queryParameters.filterJobType.code) {
-        // } else {
-        //     this.setBaseUrlWithCategory({
-        //         url: 'categories',
-        //         code: 'programming',
-        //     });
-        // }
+        if (queryParameters.filterJobType.code) {
+            this.setBaseUrlWithCategory(queryParameters.filterJobType);
+        } else {
+            this.setBaseUrlWithCategory({
+                url: 'categories',
+                code: 'programming',
+            });
+        }
 
         return this.httpClient.get<IJobs>(this.baseUrl, { params });
     }
