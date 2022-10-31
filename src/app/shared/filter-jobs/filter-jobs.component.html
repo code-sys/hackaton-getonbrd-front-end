@@ -1,7 +1,7 @@
 <form [formGroup]="formFilter">
   <div class="row">
     <div class="form-group col-sm-2">
-      <select class="form-control" formControlName="category" (change)="selectCategory()">
+      <select class="form-control" formControlName="category" (change)="emitSearchValuesByFilter()">
         <option value="">Categoría</option>
         <option [value]="category.attributes.dimension" *ngFor="let category of categoriesList">
           {{ category.attributes.name }}
@@ -9,7 +9,7 @@
       </select>
     </div>
     <div class="form-group col-sm-2">
-      <select class="form-control" formControlName="company" (change)="selectCompany()">
+      <select class="form-control" formControlName="company" (change)="emitSearchValuesByFilter()">
         <option value="">Compañia
         </option>
         <option [value]="company.id" *ngFor="let company of companiesList">
@@ -18,7 +18,7 @@
       </select>
     </div>
     <div class="form-group col-sm-2">
-      <select class="form-control" formControlName="modality" (change)="selectModality()">
+      <select class="form-control" formControlName="modality" (change)="emitSearchValuesByFilter()">
         <option value="">Modalidad</option>
         <option [value]="modality.id" *ngFor="let modality of modalitiesList">
           {{ modality.attributes.name }}
@@ -26,7 +26,7 @@
       </select>
     </div>
     <div class="form-group col-sm-2">
-      <select class="form-control" formControlName="seniority" (change)="selectSeniority()">
+      <select class="form-control" formControlName="seniority" (change)="emitSearchValuesByFilter()">
         <option value="">Nivel</option>
         <option [value]="seniority.id" *ngFor="let seniority of senioritiesList">
           {{ seniority.attributes.name }}
@@ -34,7 +34,7 @@
       </select>
     </div>
     <div class="form-group col-sm-2">
-      <select class="form-control" formControlName="city" (change)="selectCity()">
+      <select class="form-control" formControlName="city" (change)="emitSearchValuesByFilter()">
         <option value="">Localidad</option>
         <option [value]="city.id" *ngFor="let city of citiesList">
           {{ city.attributes.name }}
@@ -42,7 +42,7 @@
       </select>
     </div>
     <div class="form-group col-sm-2">
-      <select class="form-control" formControlName="perk" (change)="selectPerk()">
+      <select class="form-control" formControlName="perk" (change)="emitSearchValuesByFilter()">
         <option value="">Beneficios</option>
         <option [value]="perk.id" *ngFor="let perk of perksList">
           {{ perk.attributes.name }}
@@ -53,5 +53,5 @@
       <input #inputSearchJob class="form-control" formControlName="searchJob"
       placeholder="Busca empleo por lo que quieras" />
     </div>
-  </div>  
+  </div>
 </form>
