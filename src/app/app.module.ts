@@ -15,11 +15,8 @@ import { InterceptorService } from './services/interceptor/interceptor.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ErrorInterceptorService } from './services/interceptor/error-interceptor.service';
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
 import { MyHammerConfig } from './common/config/HammerJsConfig';
 
-registerLocaleData(localeEs, 'es');
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -42,7 +39,6 @@ registerLocaleData(localeEs, 'es');
     ],
     declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
     providers: [
-        { provide: LOCALE_ID, useValue: 'es' },
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig,

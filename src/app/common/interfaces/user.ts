@@ -44,19 +44,6 @@ export interface ChangePassword {
     newPassword: string;
 }
 
-export interface UserReport {
-    id: number;
-    username: string;
-    chargue: string;
-    schedule: string;
-    createdAt: string;
-    updateAt: string;
-    nombre: string;
-    fatherLastName: string;
-    motherLastName: string;
-    status: string;
-}
-
 export interface UserForgotPassword {
     username: string;
 }

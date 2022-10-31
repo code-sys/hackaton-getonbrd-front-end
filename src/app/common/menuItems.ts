@@ -1,6 +1,6 @@
 import { RouteInfo } from './interfaces';
 
-const ROUTER_COMMON = [
+export const ROUTES: RouteInfo[] = [
     {
         path: '/home',
         title: 'inicio',
@@ -23,5 +23,3 @@ const ROUTER_COMMON = [
         class: 'azure',
     },
 ];
-
-export const ROUTES: RouteInfo[] = [...ROUTER_COMMON];

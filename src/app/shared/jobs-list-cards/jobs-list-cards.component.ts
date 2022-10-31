@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IJob } from '../../../common/interfaces';
+import { IJob } from '@core/interfaces';
 
 @Component({
     selector: 'app-jobs-list-cards',

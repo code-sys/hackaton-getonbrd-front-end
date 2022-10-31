@@ -5,8 +5,15 @@
         </div>
         <div class="ml-auto p-2">
             <button type="button" class="btn info pe-2" (click)="listShow = !listShow">
-                Listar como {{listShow ? 'cards' : 'tabla'}}
+                Listado como {{listShow ? 'cards' : 'tabla'}}
+                <ng-container *ngIf="listShow ; else iconCard">
+                    <i class="fas fa-calendar"></i>
+                </ng-container>
+                <ng-template #iconCard>
+                    <i class="fa-solid fa-table"></i>
+                </ng-template>
             </button>
+
         </div>
     </div>
 

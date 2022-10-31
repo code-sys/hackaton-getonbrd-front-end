@@ -12,6 +12,7 @@ import { FilterJobsComponent } from './filter-jobs/filter-jobs.component';
 import { JobsDetailComponent } from './jobs-detail/jobs-detail.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { JobsListCardsComponent } from './jobs-list-cards/jobs-list-cards.component';
 
 @NgModule({
     imports: [
@@ -30,6 +31,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
         NavigationBarComponent,
         FilterJobsComponent,
         JobsDetailComponent,
+        JobsListCardsComponent,
     ],
     exports: [
         FooterComponent,
@@ -38,6 +40,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
         NavigationBarComponent,
         FilterJobsComponent,
         JobsDetailComponent,
+        JobsListCardsComponent,
     ],
 })
 export class SharedModule {}
