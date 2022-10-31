@@ -46,12 +46,8 @@ export class JobsListComponent implements OnInit, OnDestroy {
 
     setJobs(): boolean | void {
         console.log('LLAMÓ setJobs')
-        const filters: FilterInterface[] = this.paginationParams.filterJobType.filters
-        const categoryCode = this.paginationParams.filterJobType.code;
+        const categoryCode: string = this.paginationParams.filterJobType.code;
         const page: number = this.paginationParams.page;
-
-        console.log('current page', page)
-        console.log('previous page', this.prevPgCodeLeakedJobs)
 
         if (
             this.prevCatCodeLeakedJobs == categoryCode &&
@@ -59,25 +55,29 @@ export class JobsListComponent implements OnInit, OnDestroy {
             // (filters.length > 0 && this.prevPgCodeLeakedJobs === page)
          ) {
             console.log('filtering ')
-            this.jobsList = filterJobHelper(this.jobs, filters);
-            const total_pages = filters.length > 0 ? 1 : this.meta.total_pages;
-            this.metaList = { ...this.meta, total_pages };
+            this.filterJobs();
             return false;
         }
 
         console.log('quering')
+        this.queryJobs();
+    }
+
+    private queryJobs(): void {
+        const categoryCode: string = this.paginationParams.filterJobType.code;
+        const page: number = this.paginationParams.page;
 
         this.prevCatCodeLeakedJobs = categoryCode;
         this.prevPgCodeLeakedJobs = page;
+
         this.jobsService.getAllJobs(this.paginationParams).subscribe({
             next: (resp) => {
-                this.jobs = resp.data;
-                this.meta = resp.meta;
-
-                this.jobsList = filterJobHelper(this.jobs, filters);
-
+                const filters: FilterInterface[] = this.paginationParams.filterJobType.filters;
                 const total_pages = filters.length > 0 ? 1 : resp.meta.total_pages;
 
+                this.jobs = resp.data;
+                this.meta = resp.meta;
+                this.jobsList = filterJobHelper(this.jobs, filters);
                 this.metaList = { ...resp.meta, total_pages };
             },
             error: (_error) => {
@@ -89,6 +89,14 @@ export class JobsListComponent implements OnInit, OnDestroy {
                 };
             },
         });
+    }
+
+    private filterJobs(): void {
+        const filters: FilterInterface[] = this.paginationParams.filterJobType.filters
+        const total_pages = filters.length > 0 ? 1 : this.meta.total_pages;
+
+        this.jobsList = filterJobHelper(this.jobs, filters);
+        this.metaList = { ...this.meta, total_pages };
     }
 
     searchJobsWihAWord(word: string) {
@@ -109,6 +117,8 @@ export class JobsListComponent implements OnInit, OnDestroy {
     }
 
     onPageChanged(page: INgxPaginationPage) {
+        // TODO la pg cambia en otra parte del código y realiza un segundo llamado
+        //      verificar cambios en la propiedad this.meta
         this.paginationParams.page = page.page;
         this.setJobs();
     }
