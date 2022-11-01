@@ -1,14 +1,15 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { FilterJobTypeEnum } from '@core/enums/filter-job-type.enum';
 import { PaginationParams } from '@core/interfaces';
 import { Category } from '@core/interfaces/category';
-import { FilterJobType } from '@core/interfaces/filter-job-type';
+import { FilterJobType, FilterInterface } from '@core/interfaces/filter-job-type';
 import { ItemCity } from '@core/interfaces/list-city';
 import { ItemCompany } from '@core/interfaces/list-company';
 import { ItemModality } from '@core/interfaces/list-modality';
 import { ItemPerk } from '@core/interfaces/list-perk';
 import { ItemSeniority } from '@core/interfaces/list-seniority';
-import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, Subject, takeUntil } from 'rxjs';
 import { CategoriesService } from 'src/app/services/category/categories.service';
 import { CompaniesService } from 'src/app/services/company/companies.service';
 import { LocationsService } from 'src/app/services/location/locations.service';
@@ -33,8 +34,10 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
         per_page: 15,
         page: 1,
     };
+    @Input() defaultCode: string = 'programming';
     @Output() filterSelected: EventEmitter<FilterJobType> = new EventEmitter<FilterJobType>();
     @Output() searchJobEmitter: EventEmitter<string> = new EventEmitter<string>();
+    @Output() selectedCategory: EventEmitter<FilterJobType> = new EventEmitter<FilterJobType>();
     resetSearchJob: boolean = false;
     unsucribeObservable$: Subject<boolean> = new Subject();
     constructor(
@@ -109,17 +112,8 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.categoriesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
-    }
-    
-    selectCategory() {
-        const filterType: FilterJobType = {
-            code: this.controlCategory.value,
-            url: 'categories',
-        };
-        this.filterSelected.emit(filterType);
     }
 
     listCompanies() {
@@ -128,16 +122,8 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.companiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
-    }
-    selectCompany() {
-        const filterType: FilterJobType = {
-            code: this.controlCompany.value,
-            url: 'companies',
-        };
-        this.filterSelected.emit(filterType);
     }
 
     listModalities() {
@@ -146,16 +132,8 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.modalitiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
-    }
-    selectModality() {
-        const filterType: FilterJobType = {
-            code: this.controlModality.value,
-            url: 'modalities',
-        };
-        this.filterSelected.emit(filterType);
     }
 
     listSeniorities() {
@@ -164,16 +142,8 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.senioritiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
-    }
-    selectSeniority() {
-        const filterType: FilterJobType = {
-            code: this.controlSeniority.value,
-            url: 'seniorities',
-        };
-        this.filterSelected.emit(filterType);
     }
 
     listCities() {
@@ -182,16 +152,8 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.citiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
-    }
-    selectCity() {
-        const filterType: FilterJobType = {
-            code: this.controlCity.value,
-            url: 'cities',
-        };
-        this.filterSelected.emit(filterType);
     }
 
     listPerks() {
@@ -200,21 +162,65 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.perksList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
     }
 
-    selectPerk() {
+    onSearchJob(word: string) {
+        this.searchJobEmitter.emit(word);
+    }
+
+    private createFilterJobType(): FilterJobType {
+        const filters: FilterInterface[] = this.getFilters();
         const filterType: FilterJobType = {
-            code: this.controlPerk.value,
-            url: 'perks',
+            code: this.controlCategory.value,
+            url: 'categories',
+            filters,
         };
+
+        return filterType;
+    }
+
+    private getFilters(): FilterInterface[] {
+        const filters: FilterInterface[] = [];
+
+        const company = this.formFilter.get('company').value;
+        const modality = this.formFilter.get('modality').value;
+        const seniority = this.formFilter.get('seniority').value;
+        const city = this.formFilter.get('city').value;
+        const perk = this.formFilter.get('perk').value;
+
+        if (company !== '') {
+            filters.push({ type: FilterJobTypeEnum.Company, code: company });
+        }
+
+        if (modality !== '') {
+            filters.push({ type: FilterJobTypeEnum.Modality, code: modality });
+        }
+
+        if (seniority !== '') {
+            filters.push({ type: FilterJobTypeEnum.Seniority, code: seniority });
+        }
+
+        if (city !== '') {
+            filters.push({ type: FilterJobTypeEnum.City, code: city });
+        }
+
+        if (perk !== '') {
+            filters.push({ type: FilterJobTypeEnum.Perk, code: perk });
+        }
+
+        return filters;
+    }
+
+    public emitSearchValuesByFilter() {
+        const filterType: FilterJobType = this.createFilterJobType();
         this.filterSelected.emit(filterType);
     }
 
-    onSearchJob(word: string) {
-        this.searchJobEmitter.emit(word);
+    public emitSelectedCategoryByFilter() {
+        const filterType: FilterJobType = this.createFilterJobType();
+        this.selectedCategory.emit(filterType);
     }
 
     ngOnDestroy(): void {

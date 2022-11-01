@@ -1,6 +1,6 @@
-  <p align="center">
+<p align="center">
     FrontEnd desarrollado para la Hackaton de Gentleman Programming
-  </p>
+</p>
 
 _Adicionalmente funciona como PWA(Progresive Web App) que puede integrarse en cualquier dispositivo movil_
 
@@ -88,6 +88,16 @@ _La PWA se encuentra configurada para ejecutarse en la vista de Login si no se e
 _Se cuenta con soporte de notificaciones Push integrado tanto para escritorio como dispositivos moviles para avisos_
 
 _Se creo el archivo `custom-service-worker.js` para la gestion de evento de notificaciones personalizado_
+
+<p align="center">
+<br>
+<img src="docs/pwa/pwa_1.jpg"  width="312" height="676" />
+<img src="docs/pwa/pwa_2.jpg" width="312" height="676" /> 
+</p>
+<br>
+<p align="center">
+<img src="docs/pwa/pwa_3.jpg" width="354" height="189" /> 
+</p>
 
 ## Web Authn FingerPrint 👨🏻‍💻
 

@@ -15,22 +15,22 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UserPhotoComponent } from './components/user-photo/user-photo.component';
 
 @NgModule({
-  declarations: [UserProfileComponent, UserOptionsComponent, UserPhotoComponent],
-  imports: [
-    CommonModule,
-    NgSelectModule,
-    NgbModule,
-    ModalModule.forRoot(),
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatNativeDateModule,
-    MatRippleModule,
-    MatSlideToggleModule,
-    ReactiveFormsModule,
-    FormsModule,
-    SweetAlert2Module.forRoot(),
-    RouterModule.forChild(UserProfileRouter),
-  ],
-  providers: [DatePipe],
+    declarations: [UserProfileComponent, UserOptionsComponent, UserPhotoComponent],
+    imports: [
+        CommonModule,
+        NgSelectModule,
+        NgbModule,
+        ModalModule.forRoot(),
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatNativeDateModule,
+        MatRippleModule,
+        MatSlideToggleModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SweetAlert2Module.forRoot(),
+        RouterModule.forChild(UserProfileRouter),
+    ],
+    providers: [DatePipe],
 })
 export class UserProfileModule {}

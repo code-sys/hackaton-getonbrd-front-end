@@ -18,10 +18,11 @@
     </div>
 
     <div class="row justify-content-center">
-        <app-filter-jobs (filterSelected)="filterJobList($event)" (searchJobEmitter)="onSearchJob($event)">
+        <app-filter-jobs (filterSelected)=" onSelectedChange = true; filterJobList($event);"
+            (selectedCategory)="  queryByCategory($event)" (searchJobEmitter)="onSearchJob($event)">
         </app-filter-jobs>
         <ng-container *ngIf="listShow; else tableListF">
-            <app-jobs-list-cards [jobs]="jobs" (goJobDetailsEmitter)="showDetail($event)"></app-jobs-list-cards>
+            <app-jobs-list-cards [jobs]="jobsList" (goJobDetailsEmitter)="showDetail($event)"></app-jobs-list-cards>
         </ng-container>
         <ng-template #tableListF>
             <div class="table-responsive mt-4">
@@ -35,7 +36,7 @@
                             <th scope="col" style="width: 200px;">Detalles del trabajo</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let job of jobs">
+                    <tbody *ngFor="let job of jobsList">
                         <tr>
                             <td>
                                 {{job.attributes.title}}
@@ -90,14 +91,20 @@
         <div *ngIf="jobs">
             <div class="flex-wrap d-flex justify-content-center">
                 <pagination [boundaryLinks]="showBoundaryLinks" [maxSize]="maxSize" [rotate]="false"
-                    [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
-                    [itemsPerPage]="meta.per_page" [customPreviousTemplate]="prevTemplate"
-                    [customNextTemplate]="nextTemplate" [totalItems]="meta.total_pages * meta.per_page"
-                    (pageChanged)="onPageChanged($event)">
+                    [style]="onSelectedChange ? 'display : none !important' : '' " [customFirstTemplate]="firstTemplate"
+                    [customLastTemplate]="lastTemplate" [itemsPerPage]="metaList.per_page"
+                    [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate"
+                    [totalItems]="metaList.total_pages * metaList.per_page" (pageChanged)="onPageChanged($event)">
+                </pagination>
+                <!-- Esto se hizo porque el mejor rehacia el API .... -->
+                <pagination [boundaryLinks]="showBoundaryLinks" [maxSize]="maxSize" [rotate]="false"
+                    [style]="onSelectedChange ?  '' : 'display : none !important'  "
+                    [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate" [itemsPerPage]="1"
+                    [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate" [totalItems]="1">
                 </pagination>
             </div>
             <div class="flex-wrap d-flex justify-content-center">
-                Páginas: {{meta.total_pages}}
+                Páginas: {{metaList.total_pages}}
             </div>
         </div>
     </div>
