@@ -37,6 +37,7 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
     @Input() defaultCode: string = 'programming';
     @Output() filterSelected: EventEmitter<FilterJobType> = new EventEmitter<FilterJobType>();
     @Output() searchJobEmitter: EventEmitter<string> = new EventEmitter<string>();
+    @Output() selectedCategory: EventEmitter<FilterJobType> = new EventEmitter<FilterJobType>();
     resetSearchJob: boolean = false;
     unsucribeObservable$: Subject<boolean> = new Subject();
     constructor(
@@ -111,7 +112,6 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.categoriesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
     }
@@ -122,7 +122,6 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.companiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
     }
@@ -133,7 +132,6 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.modalitiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
     }
@@ -144,7 +142,6 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.senioritiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
     }
@@ -155,7 +152,6 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.citiesList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
     }
@@ -166,7 +162,6 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
                 this.perksList = response.data;
             },
             error: (_error) => {
-                //console.log("ERROR ===> ", error);
             },
         });
     }
@@ -176,12 +171,11 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
     }
 
     private createFilterJobType(): FilterJobType {
-        const code: string = this.controlCategory.value;
         const filters: FilterInterface[] = this.getFilters();
         const filterType: FilterJobType = {
-            code: code.length > 0 ? code : this.defaultCode,
+            code: this.controlCategory.value,
             url: 'categories',
-            filters
+            filters,
         };
 
         return filterType;
@@ -222,6 +216,11 @@ export class FilterJobsComponent implements OnInit, OnDestroy {
     public emitSearchValuesByFilter() {
         const filterType: FilterJobType = this.createFilterJobType();
         this.filterSelected.emit(filterType);
+    }
+
+    public emitSelectedCategoryByFilter() {
+        const filterType: FilterJobType = this.createFilterJobType();
+        this.selectedCategory.emit(filterType);
     }
 
     ngOnDestroy(): void {

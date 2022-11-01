@@ -5,17 +5,14 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserLoginResponse } from '../interfaces';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class IsLogged implements CanActivate {
-  constructor(private router: Router, private authService: AuthService) {}
-  canActivate(): Observable<boolean> {
-    console.log('Auth Guard IsLogin');
-    return this.authService.user$.pipe(
-      take(1),
-      map((user: UserLoginResponse) =>
-        user ? (console.log('user', user), true) : (console.log('user', false), false),
-      ),
-    );
-  }
+    constructor(private router: Router, private authService: AuthService) {}
+    canActivate(): Observable<boolean> {
+        return this.authService.user$.pipe(
+            take(1),
+            map((user: UserLoginResponse) => (user ? true : false))
+        );
+    }
 }

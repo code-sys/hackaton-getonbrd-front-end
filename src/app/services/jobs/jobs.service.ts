@@ -21,7 +21,6 @@ export class JobsService {
         params = params.set('per_page', queryParameters.per_page);
         params = params.set('page', queryParameters.page);
         params = params.set('expand', '["company"]');
-
         if (queryParameters.filterJobType.code) {
             this.setBaseUrlWithCategory(queryParameters.filterJobType);
         } else {

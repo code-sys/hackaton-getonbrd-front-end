@@ -1,18 +1,19 @@
 .pointer {
-  cursor: pointer !important;
+    cursor: pointer !important;
 }
 
 .btn-primary {
-  background-image: linear-gradient(to bottom left, #5e72e4, #5e72e4, #5e72e4);
+    background-image: linear-gradient(to bottom left, #5e72e4, #5e72e4, #5e72e4);
 }
 
 a {
-  color: #5e72e4 !important;
+    color: #5e72e4 !important;
 }
 
 .footer-auth {
-  background: transparent !important;
-  position: absolute;
-  bottom: 0;
-  width: 70%;
+    background: transparent !important;
+    a {
+        font-size: 1em;
+        font-weight: bold;
+    }
 }

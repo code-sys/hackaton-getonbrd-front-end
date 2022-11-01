@@ -9,7 +9,6 @@ export class CheckLogin implements CanActivate {
   constructor(private router: Router, private authService: AuthService) {}
 
   canActivate() {
-    console.log('Auth Guard Check Login');
     if (localStorage.getItem('user') !== null) {
       if (this.authService.getItemToken('firstLogin')) {
         localStorage.removeItem('user');

@@ -1,7 +1,7 @@
 <form [formGroup]="formFilter">
   <div class="row">
     <div class="form-group col-sm-2">
-      <select class="form-control" formControlName="category" (change)="emitSearchValuesByFilter()">
+      <select class="form-control" formControlName="category" (change)="emitSelectedCategoryByFilter()">
         <option value="">Categoría</option>
         <option [value]="category.attributes.dimension" *ngFor="let category of categoriesList">
           {{ category.attributes.name }}
